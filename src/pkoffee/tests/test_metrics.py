@@ -1,5 +1,3 @@
-import pytest
-
 def test_check_size_match():
     import numpy as np
     from pkoffee.metrics import check_size_match, SizeMismatchError
@@ -22,6 +20,7 @@ def test_check_size_match():
 
 def test_compute_r2():
     import numpy as np
+    import pytest 
     from pkoffee.metrics import compute_r2
 
     y_true = np.array([3.0, -0.5, 2.0, 7.0])
@@ -36,6 +35,7 @@ def test_compute_r2():
 
 def test_compute_rmse():
     import numpy as np
+    import pytest 
     from pkoffee.metrics import compute_rmse
 
     y_true = np.array([1.0, 2.0, 3.0, 4.0])
@@ -47,6 +47,7 @@ def test_compute_rmse():
 
 def test_compute_mae():
     import numpy as np
+    import pytest 
     from pkoffee.metrics import compute_mae
 
     y_true = np.array([1.0, 2.0, 3.0, 4.0])
