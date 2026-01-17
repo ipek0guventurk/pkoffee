@@ -1,7 +1,36 @@
 name: a simple test # le nom
 on: [push] # sur quelle action qu'on veut s'executer le workflow
-jobs: 
-  unit-test: # nom de job
-    runs-on: ubuntu-latest # environnement d'execution
-    steps: 
-      - run: "echo 'Running tests on: ${{ runner.os }}'" # commande a executer
+jobs:
+  SayHello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: "echo 'Branch: ${{ github.ref }}'"
+      - run: "echo 'Running tests for ${{ github.repository }}'"
+      - run: "echo 'Repo: ${{ github.repository }}'"
+
+    code-checks:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout the code
+          uses: actions/checkout@v6
+        - name: Install pixi
+          uses: prefix-dev/setup-pixi@v0.9.3
+          with:
+            pixi-version: v0.62.2 # good to pin this since pixi is not 1.0 yet!
+        
+        - name: look for syntax errors
+          run: pixi run ruff check
+          
+    unit-tests:
+      runs-on: ubuntu-latest
+      needs: code-checks # don't bother running tests if code-checks fails.
+      steps:
+      - name: Checkout the code
+        uses: actions/checkout@v6
+
+      - name: Install pixi
+        uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+          pixi-version: v0.62.2 # good to pin this since pixi is not 1.0 yet!
+
+      - run: pixi run pytest
