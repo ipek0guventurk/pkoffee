@@ -1,0 +1,7 @@
+name: a simple test # le nom
+on: [push] # sur quelle action qu'on veut s'executer le workflow
+jobs: 
+  unit-test: # nom de job
+    runs-on: ubuntu-latest # environnement d'execution
+    steps: 
+      - run: "echo 'Running tests on: ${{ runner.os }}'" # commande a executer
